@@ -36,9 +36,11 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 // -- 4 APR 2023 - Viewing user data
 // Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);
 
-// -- 5 ARP 2023
+// -- 5 APR 2023
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/me', [AuthenticationController::class, 'me']);
     Route::post('/posts', [PostController::class, 'store']);
+    // 06 APR
+    Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware('post.owner');
 });
