@@ -43,4 +43,5 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/posts', [PostController::class, 'store']);
     // 06 APR
     Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware('post.owner');
+    Route::delete('posts/{id}', [PostController::class, 'delete'])->middleware('post.owner');
 });
