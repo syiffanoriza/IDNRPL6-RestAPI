@@ -19,7 +19,9 @@ class PostController extends Controller
         // 27 MAR 2023
         $posts = Post::all();
         // return response()->json(['data'=>$posts]);
-        return PostResource::collection($posts);
+        // return PostResource::collection($posts);
+        // 10 APR 2023
+        return PostDetailResource::collection($posts->loadMissing('writer:id,username', 'comments'));
     }
 
     //  -- 27 MAR 2023
@@ -27,7 +29,9 @@ class PostController extends Controller
     {
         // $post = Post::findOrFail($id);
         $post = Post::with('writer:id,username')->findOrFail($id);
-        return new PostDetailResource($post);
+        // return new PostDetailResource($post);
+        // 10 APR 2023
+        return new PostDetailResource($post->loadMissing('writer:id,username','comments:id,post_id,user_id,comments_content'));
     }
 
     public function show2($id)
