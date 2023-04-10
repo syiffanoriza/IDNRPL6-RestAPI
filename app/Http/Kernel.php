@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\isCommentOwner;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'post.owner' => \App\Http\Middleware\isPostOwner::class
+        'post.owner' => \App\Http\Middleware\isPostOwner::class,
+        'comment.owner' => \App\Http\Middleware\isCommentOwner::class
     ];
 }

@@ -45,5 +45,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     // 06 APR
     Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware('post.owner');
     Route::delete('posts/{id}', [PostController::class, 'delete'])->middleware('post.owner');
+    // 10 APR 2023 - COMMENT FEATURE
     Route::post('/comment', [CommentController::class, 'store']);
+    Route::patch('/comment/{id}', [CommentController::class, 'update'])->middleware('comment.owner');
+    Route::delete('/comment/{id}', [CommentController::class, 'delete'])->middleware('comment.owner');
 });
