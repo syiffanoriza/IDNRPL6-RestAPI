@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -44,4 +45,5 @@ Route::middleware(['auth:sanctum'])->group(function(){
     // 06 APR
     Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware('post.owner');
     Route::delete('posts/{id}', [PostController::class, 'delete'])->middleware('post.owner');
+    Route::post('/comment', [CommentController::class, 'store']);
 });
