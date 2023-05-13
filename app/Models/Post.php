@@ -14,7 +14,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes; #06 APR
 
-    protected $fillable = ['title', 'news_content', 'author'];
+    protected $fillable = ['title', 'news_content', 'author', 'image'];
 
     // 27 MAR 2023
     public function writer(): BelongsTo

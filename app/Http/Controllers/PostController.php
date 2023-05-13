@@ -7,6 +7,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,6 +48,16 @@ class PostController extends Controller
             'news_content' => 'required'
         ]);
 
+        // 11 APR 2023
+        $image = null;
+        if ($request->file) {
+            $fileName = $this->generateRandomString(); #renames file
+            $extension = $request->file->extension(); #stores file extension
+            Storage::putFileAs('image', $request->file, $fileName.'.'.$extension);
+        }
+
+        $request['image'] = $image;
+
         $request['author'] = Auth::user()->id;
         
         $post = Post::create($request->all());
@@ -74,5 +85,16 @@ class PostController extends Controller
 
         // return new PostDetailResource($post->loadMissing('writer:id,username')); #<--returns deleted post data
         return response()->json(['message' => 'Post deleted successfully']);
+    }
+
+    // 11 APR 2023
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }
